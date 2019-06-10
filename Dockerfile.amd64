@@ -35,6 +35,9 @@ RUN chmod +x /usr/local/bin/fossa
 RUN echo 'Host *' >> /etc/ssh/ssh_config \
   && echo '    StrictHostKeyChecking no' >> /etc/ssh/ssh_config
 
+# Use SSH instead of HTTP so go modules can pull private repos
+RUN git config --system url.ssh://git@github.com.insteadOf https://github.com
+
 # Disable cgo so that binaries we build will be fully static.
 ENV CGO_ENABLED=0
 
